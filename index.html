@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Input Form</title>
+</head>
+<body>
+    <h1>Input Form</h1>
+    <form id="inputForm">
+        <label for="field1">Field 1:</label><br>
+        <input type="text" id="field1" name="field1"><br><br>
+        <label for="field2">Field 2:</label><br>
+        <input type="text" id="field2" name="field2"><br><br>
+        <label for="field3">Field 3:</label><br>
+        <input type="text" id="field3" name="field3"><br><br>
+        <button type="button" onclick="submitData()">Submit</button>
+    </form>
+
+    <script>
+        function submitData() {
+            const field1 = document.getElementById('field1').value;
+            const field2 = document.getElementById('field2').value;
+            const field3 = document.getElementById('field3').value;
+
+            fetch('/submit', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({ field1, field2, field3 })
+            }).then(response => {
+                if (response.ok) {
+                    alert('Data submitted successfully!');
+                } else {
+                    alert('Failed to submit data.');
+                }
+            }).catch(error => {
+                console.error('Error:', error);
+                alert('Failed to submit data.');
+            });
+        }
+    </script>
+</body>
+</html>
