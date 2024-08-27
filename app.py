@@ -60,3 +60,15 @@ def edit_data():
     df.to_excel('data.xlsx', index=False)
     
     return jsonify({'message': 'Data updated successfully!'}), 200
+
+#Allows users to delete specific records
+@app.route('/delete', methods=['POST'])
+def delete_data():
+    data = request.json
+    record_id = data['id']
+    
+    df = pd.read_excel('data.xlsx')
+    df = df[df['ID'] != record_id]
+    df.to_excel('data.xlsx', index=False)
+    
+    return jsonify({'message': 'Data deleted successfully!'}), 200
