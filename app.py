@@ -38,3 +38,10 @@ def submit():
 
 if __name__ == '__main__':
     app.run(debug=True)
+
+#New route displays contents of file in table format
+
+@app.route('/view_data', methods=['GET'])
+def view_data():
+    df = pd.read_excel('data.xlsx')
+    return df.to_html()
