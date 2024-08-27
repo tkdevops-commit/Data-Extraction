@@ -2,6 +2,12 @@ from flask import Flask, request, jsonify, send_from_directory
 import pandas as pd
 import os
 
+#New route allowss users to download the file directly
+@app.route('/download', methods=['GET'])
+def download_file():
+    path = 'data.xlsx'
+    return send_from_directory('', path, as_attachment=True)
+
 app = Flask(__name__)
 
 @app.route('/')
