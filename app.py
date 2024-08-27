@@ -46,7 +46,7 @@ def view_data():
     df = pd.read_excel('data.xlsx')
     return df.to_html()
 
-#Allows eidt to previously sumitted data
+#Allows eidt to previously submitted data
 @app.route('/edit', methods=['POST'])
 def edit_data():
     data = request.json
