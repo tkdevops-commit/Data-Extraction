@@ -45,3 +45,18 @@ if __name__ == '__main__':
 def view_data():
     df = pd.read_excel('data.xlsx')
     return df.to_html()
+
+#Allows eidt to previously sumitted data
+@app.route('/edit', methods=['POST'])
+def edit_data():
+    data = request.json
+    record_id = data['id']
+    field1 = data['field1']
+    field2 = data['field2']
+    field3 = data['field3']
+    
+    df = pd.read_excel('data.xlsx')
+    df.loc[df['ID'] == record_id, ['Field 1', 'Field 2', 'Field 3']] = [field1, field2, field3]
+    df.to_excel('data.xlsx', index=False)
+    
+    return jsonify({'message': 'Data updated successfully!'}), 200
