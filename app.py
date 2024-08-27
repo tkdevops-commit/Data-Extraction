@@ -72,3 +72,11 @@ def delete_data():
     df.to_excel('data.xlsx', index=False)
     
     return jsonify({'message': 'Data deleted successfully!'}), 200
+
+#Allows users to query excel file
+@app.route('/search', methods=['GET'])
+def search_data():
+    query = request.args.get('query')
+    df = pd.read_excel('data.xlsx')
+    filtered_df = df[df['Field 1'].str.contains(query)]
+    return filtered_df.to_html()
